@@ -1,24 +1,29 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from frenchie.auth_app.models import Customer
 
-class Customer(models.Model):
-    user = models.OneToOneField(
-        User,
-        null=True,
-        blank=True,
-        on_delete=models.CASCADE,
-    )
+
+class AlbumPhoto(models.Model):
+    NAME_MAX_LENGTH = 25
 
     name = models.CharField(
-        max_length=200,
-        null=True,
+        max_length=NAME_MAX_LENGTH,
     )
 
-    email = models.EmailField()
+    age = models.IntegerField()
 
-    def __str__(self):
-        return self.name
+    description = models.TextField(
+        null=True,
+        blank=True,
+    )
+
+    image = models.ImageField()
+
+    customer = models.ForeignKey(
+        Customer,
+        on_delete=models.CASCADE,
+    )
 
 
 class Product(models.Model):
@@ -156,3 +161,6 @@ class ShippingAddress(models.Model):
 
     def __str__(self):
         return self.address
+
+
+

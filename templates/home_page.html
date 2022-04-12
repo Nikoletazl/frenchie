@@ -1,0 +1,41 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <h1>Here are some of our most lovely Frenchies!</h1>
+    {% if user.is_authenticated %}
+        <style>
+            .container {
+                text-align: center;
+                width: 800px;
+                height: 50px;
+                padding-top: 20px;
+            }
+        </style>
+
+        <div class="container">
+            <a class="btn btn-primary" href="{% url 'create photo' %}" role="button">Add Photo</a>
+        </div>
+    {% endif %}
+    {% if photos %}
+    <div class="container mb-5">
+        <div class="row mb-5">
+            {% for photo in photos %}
+
+                <div class="card ml-3 mb-3" style="width: 14rem;">
+                    <!-- Image -->
+                    <img src="{{ photo.image.url }}"
+                         class="card-img-top" alt="Photo description">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ photo.name }}, age: {{ photo.age }}</h5>
+
+                        <!-- First 30 chars from the description -->
+                        <p class="card-text">{{ photo.description|truncatechars:30 }}</p>
+                        <a href="#" class="btn btn-primary">See details</a>
+                    </div>
+                </div>
+                </div>
+                </div>
+            {% endfor %}
+    {% endif %}
+
+{% endblock %}
