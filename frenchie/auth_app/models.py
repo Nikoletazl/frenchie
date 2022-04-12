@@ -28,11 +28,11 @@ class FrenchieUser(AbstractBaseUser, PermissionsMixin):
 
 class Customer(models.Model):
     NAME_MAX_LENGTH = 200
+
     user = models.OneToOneField(
         FrenchieUser,
-        null=True,
-        blank=True,
         on_delete=models.CASCADE,
+        primary_key=True,
     )
 
     name = models.CharField(
@@ -45,4 +45,8 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.name
+
+
+
+
 

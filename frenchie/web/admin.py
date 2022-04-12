@@ -1,9 +1,16 @@
 from django.contrib import admin
-from .models import *
 
-# admin.site.register(Customer)
-# admin.site.register(AlbumPhoto)
-# admin.site.register(Product)
-# admin.site.register(Order)
-# admin.site.register(OrderItem)
-# admin.site.register(ShippingAddress)
+from frenchie.web.models import AlbumPhoto, Product, Category
+
+
+@admin.register(AlbumPhoto)
+class PhotoAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ['name', 'price', 'category']
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    pass

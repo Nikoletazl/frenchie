@@ -20,7 +20,7 @@ class CreateProfileForm(FormControl, auth_forms.UserCreationForm):
     def save(self, commit=True):
         user = super().save(commit=commit)
 
-        profile = Customer(
+        customer = Customer(
             name=self.cleaned_data['name'],
             picture=self.cleaned_data['picture'],
             email=self.cleaned_data['email'],
@@ -28,7 +28,7 @@ class CreateProfileForm(FormControl, auth_forms.UserCreationForm):
         )
 
         if commit:
-            profile.save()
+            customer.save()
         return user
 
     class Meta:
@@ -40,9 +40,9 @@ class CreateProfileForm(FormControl, auth_forms.UserCreationForm):
                     'placeholder': 'Enter your name',
                 }
             ),
-            'picture': forms.TextInput(
+            'picture': forms.FileInput(
                 attrs={
-                    'placeholder': 'Enter URL',
+                    'placeholder': 'Upload picture',
                 }
             ),
         }
@@ -73,11 +73,8 @@ class EditProfileForm(FormControl, forms.ModelForm):
 
 class DeleteProfileForm(forms.ModelForm):
     def save(self, commit=True):
-        # Not good
-        # should be done with signals
-        # because this breaks the abstraction of the auth app
-        pets = list(self.instance.pet_set.all())
-        AlbumPhoto.objects.all().delete()
+        customer = list(self.instance.customer_set.all())
+        Customer.objects.all().delete()
         self.instance.delete()
 
         return self.instance

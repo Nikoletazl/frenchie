@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
     path('', views.HomePageView.as_view(), name="home page"),
 
-    path('store/', views.store, name="store"),
+    path('store/', views.Store.as_view(), name="store"),
 
     path('create/photo/', views.CreatePhotoView.as_view(), name="create photo"),
     path('edit/photo/<int:pk>', views.EditPhotoView.as_view(), name="edit photo"),

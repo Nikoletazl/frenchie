@@ -3,7 +3,7 @@
 {% block content %}
     {% load static %}
     <p class="font-monospace"><h1>Create an account</h1></p>
-    <form method="post" class="form-group">
+     <form method="post" action="{% url 'register' %}" enctype="multipart/form-data">
     {% csrf_token %}
  {{ form|crispy}}
     <button type="submit" class="btn btn-success">Register</button>

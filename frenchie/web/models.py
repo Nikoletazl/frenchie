@@ -1,30 +1,22 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.contrib.auth.models import User
 
 from frenchie.auth_app.models import Customer
 
+UserModel = get_user_model()
 
-class AlbumPhoto(models.Model):
-    NAME_MAX_LENGTH = 25
+
+class Category(models.Model):
+    CATEGORY_MAX_LENGTH = 200
 
     name = models.CharField(
-        max_length=NAME_MAX_LENGTH,
+        max_length=CATEGORY_MAX_LENGTH,
+        blank=False,
     )
 
-    age = models.IntegerField()
-
-    description = models.TextField(
-        null=True,
-        blank=True,
-    )
-
-    image = models.ImageField()
-
-    customer = models.ForeignKey(
-        Customer,
-        on_delete=models.CASCADE,
-    )
-
+    def __str__(self):
+        return self.name
 
 class Product(models.Model):
     name = models.CharField(
@@ -44,8 +36,36 @@ class Product(models.Model):
         blank=True,
     )
 
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+    )
+
     def __str__(self):
         return self.name
+
+
+class AlbumPhoto(models.Model):
+    NAME_MAX_LENGTH = 25
+
+    name = models.CharField(
+        max_length=NAME_MAX_LENGTH,
+    )
+
+    age = models.IntegerField()
+
+    description = models.TextField(
+        null=True,
+        blank=True,
+    )
+
+    image = models.ImageField()
+
+    user = models.OneToOneField(
+        UserModel,
+        on_delete=models.CASCADE,
+        null=True,
+    )
 
 
 class Order(models.Model):
@@ -161,6 +181,3 @@ class ShippingAddress(models.Model):
 
     def __str__(self):
         return self.address
-
-
-

@@ -9,7 +9,7 @@ from frenchie.web.models import Order, Product, OrderItem, ShippingAddress
 
 def cart(request):
     if request.user.is_authenticated:
-        customer = request.user.customer
+        customer = request.user.objects.all()
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
         cart_items = order.get_cart_items
@@ -30,7 +30,7 @@ def cart(request):
 
 def checkout(request):
     if request.user.is_authenticated:
-        customer = request.user.customer
+        customer = request.user
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
         cart_items = order.get_cart_items
@@ -56,7 +56,7 @@ def updateItem(request):
     print('Action', action)
     print('productId', productId)
 
-    customer = request.user.customer
+    customer = request.user
     product = Product.objects.get(id=productId)
     order, created = Order.objects.get_or_create(customer=customer, complete=False)
 
@@ -80,7 +80,7 @@ def process_order(request):
     data = json.loads(request.body)
 
     if request.user.is_authenticated:
-        customer = request.user.customer
+        customer = request.user
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         total = float(data['form']['total'])
         order.transaction_id = transaction_id
@@ -100,3 +100,4 @@ def process_order(request):
     else:
         print('User is not logged in..')
     return JsonResponse('Payment complete!', safe=False)
+
