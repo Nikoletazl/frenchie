@@ -1,0 +1,7 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    {% csrf_token %}
+    {{ form }}
+    <hr>
+    <a  class="btn btn-primary" href="{% url 'create photo' %}" role="button">Create</a>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    {% csrf_token %}
+    {{ form }}
+    <hr>
+    <a  class="btn btn-primary" href="{% url 'edit photo' pk %}" role="button">Edit</a>
+{% endblock %}

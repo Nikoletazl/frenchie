@@ -1,0 +1,7 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    {% csrf_token %}
+    {{ form }}
+    <hr>
+    <button type="button" class="btn btn-danger">Delete</button>
+{% endblock %}
