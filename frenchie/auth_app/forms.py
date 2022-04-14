@@ -49,16 +49,20 @@ class CreateProfileForm(FormControl, auth_forms.UserCreationForm):
 
 
 class EditProfileForm(FormControl, forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._init_form_control()
+
     class Meta:
         model = Customer
-        fields = '__all__'
+        fields = ('name', 'picture', 'email')
         widgets = {
             'name': forms.TextInput(
                 attrs={
                     'placeholder': 'Enter your name',
                 }
             ),
-            'picture': forms.TextInput(
+            'picture': forms.FileInput(
                 attrs={
                     'placeholder': 'Enter URL',
                 }

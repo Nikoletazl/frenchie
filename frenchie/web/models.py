@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 from frenchie.auth_app.models import Customer
 
@@ -17,6 +18,7 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Product(models.Model):
     name = models.CharField(
@@ -70,7 +72,7 @@ class AlbumPhoto(models.Model):
 
 class Order(models.Model):
     customer = models.ForeignKey(
-        Customer,
+        UserModel,
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
@@ -100,7 +102,7 @@ class Order(models.Model):
         order_items = self.orderitem_set.all()
 
         for i in order_items:
-            if i.product.digital == False:
+            if not i.product.digital:
                 shipping = True
 
         return shipping
@@ -151,7 +153,7 @@ class OrderItem(models.Model):
 
 class ShippingAddress(models.Model):
     customer = models.ForeignKey(
-        Customer,
+        UserModel,
         on_delete=models.SET_NULL,
         blank=True,
         null=True,

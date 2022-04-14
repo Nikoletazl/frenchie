@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, TemplateView
@@ -7,8 +7,6 @@ from django.views.generic import CreateView, UpdateView, DeleteView, ListView, T
 from .forms import CreatePhotoForm, EditPhotoForm, DeletePhotoForm
 from .models import *
 import json
-
-from ..helpers.form_control import FormControl
 
 
 class HomePageView(ListView):
@@ -18,16 +16,12 @@ class HomePageView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         photos = list(AlbumPhoto.objects.all())
-        categories = list(Category.objects.all())
 
         context.update({
             'photos': photos,
-            'categories': categories,
         })
 
         return context
-
-
 
 
 class CreatePhotoView(CreateView, LoginRequiredMixin):
@@ -54,41 +48,20 @@ class DeletePhotoView(DeleteView):
 
 
 class Store(TemplateView):
-    # if request.user.is_authenticated:
-    #     customer = request.user
-    #     order, created = Order.objects.get_or_create(customer=customer, complete=False)
-    #     items = order.orderitem_set.all()
-    #     cart_items = order.get_cart_items
-    # # else:
-    # #     items = []
-    # #     order = {'get_cart_total': 0, 'get_cart_items': 0, 'shipping': False}
-    # #     cart_items = order['get_cart_items']
-    #
-    # products = Product.objects.all()
-    # context = {
-    #     'products': products,
-    #     # 'cart_items': cart_items,
-    # }
-    # return render(request, 'store/store.html', context)
     model = Product
     template_name = 'store/store.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        products = None
-        categories = list(Category.objects.all())
-        category_id = self.request.GET.get('category')
-        if category_id:
-            products = Product.objects.filter(category=category_id)
+        products = Product.objects.all()
 
-        else:
-            products = Product.objects.filter(category=1)
 
         context.update({
             'products': products,
-            'categories': categories,
+
         })
 
         return context
+
 
 

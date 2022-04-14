@@ -3,49 +3,59 @@ import json
 
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.views.generic import TemplateView
 
 from frenchie.web.models import Order, Product, OrderItem, ShippingAddress
 
 
-def cart(request):
-    if request.user.is_authenticated:
-        customer = request.user.objects.all()
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitem_set.all()
-        cart_items = order.get_cart_items
+class Cart(TemplateView):
+    model = Product
+    template_name = 'store/cart.html'
 
-    else:
-        items = []
-        order = {'get_cart_total': 0, 'get_cart_items': 0, 'shipping': False}
-        cart_items = order['get_cart_items']
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            customer = self.request.user
+            order, created = Order.objects.get_or_create(customer=customer, complete=False)
+            items = order.orderitem_set.all()
 
-    context = {
-        'items': items,
-        'order': order,
-        'cart_items': cart_items,
-    }
+        else:
+            items = []
+            order = {'get_cart_total': 0, 'get_cart_items': 0}
 
-    return render(request, 'store/cart.html', context)
+        context.update(
+            {
+                'items': items,
+                'order': order,
+            }
+        )
+
+        return context
 
 
-def checkout(request):
-    if request.user.is_authenticated:
-        customer = request.user
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitem_set.all()
-        cart_items = order.get_cart_items
-    else:
-        items = []
-        order = {'get_cart_total': 0, 'get_cart_items': 0, 'shipping': False}
-        cart_items = order['get_cart_items']
+class Checkout(TemplateView):
+    model = Product
+    template_name = 'store/checkout.html'
 
-    context = {
-        'items': items,
-        'order': order,
-        'cart_items': cart_items,
-    }
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            customer = self.request.user
+            order, created = Order.objects.get_or_create(customer=customer, complete=False)
+            items = order.orderitem_set.all()
 
-    return render(request, 'store/checkout.html', context)
+        else:
+            items = []
+            order = {'get_cart_total': 0, 'get_cart_items': 0}
+
+        context.update(
+            {
+                'items': items,
+                'order': order,
+            }
+        )
+
+        return context
 
 
 def updateItem(request):
@@ -95,7 +105,6 @@ def process_order(request):
                 order=order,
                 address=data['shipping']['address'],
                 city=data['shipping']['city'],
-                zipcore=data['shipping']['zipcode'],
             )
     else:
         print('User is not logged in..')

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from frenchie.web.models import AlbumPhoto, Product, Category
+from frenchie.web.models import AlbumPhoto, Product, Category, Order, OrderItem
 
 
 @admin.register(AlbumPhoto)
@@ -13,4 +13,12 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
     pass

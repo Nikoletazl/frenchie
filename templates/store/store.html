@@ -3,11 +3,11 @@
 {% block content %}
     <div class="row">
         {% for product in products %}
-            <div class="col-lg-4">
+            <div id="products" class="col-lg-4">
                 {% if not product.image %}
                     <img class="thumbnail" src="{% static 'images/placeholder.png' %}">
                 {% else %}
-                    <img class="thumbnail" src="{{ product.image.url }}">
+                    <img class="img-thumbnail" src="{{ product.image.url }}">
                 {% endif %}
                 <div class="box-element product">
                     <h6><strong>{{ product.name }}</strong></h6>
@@ -25,3 +25,4 @@
     </div>
 
 {% endblock content %}
+
