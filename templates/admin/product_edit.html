@@ -4,7 +4,8 @@
     <div class="row">
         <div class="col-lg-3"></div>
         <div class="col-lg-6">
-            <form method="post" action="{% url 'edit product' product.pk %}">
+            <form method="post" action="{% url 'edit product' product.pk %}" enctype="multipart/form-data">
+">
                 {{ form|crispy }}
                 {% csrf_token %}
 

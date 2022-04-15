@@ -1,14 +1,14 @@
 {% extends 'base/base.html' %}
 {% load static %}
 {% block content %}
-    {% if user.is_athenticated or request.user.is_staff %}
+    {% if user.is_authenticated or request.user.is_staff %}
     <div class="row">
         {% for product in products %}
             <div id="products" class="col-lg-4">
                 {% if not product.image %}
                     <img class="thumbnail" src="{% static 'images/placeholder.png' %}">
                 {% else %}
-                    <img class="img-thumbnail" src="{{ product.image.url }}">
+                    <img class="thumbnail" src="{{ product.image.url }}">
                 {% endif %}
                 <div class="box-element product">
                     <h6><strong>{{ product.name }}</strong></h6>

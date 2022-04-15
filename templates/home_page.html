@@ -24,16 +24,16 @@
                              class="card-img-top" alt="Photo description">
                         <div class="card-body">
                             <h5 class="card-title">{{ photo.name }}, age: {{ photo.age }}</h5>
-                            <p class="card-text">{{ photo.description|truncatechars:30 }}</p>
+                            <p class="card-text">{{ photo.description|truncatechars:50 }}</p>
                             {% if photo.user_id == request_user.id or request.user.is_staff %}
                                 <a href="{% url 'edit photo' photo.pk %}" class="btn btn-primary">Edit</a>
                                 <a href="{% url 'delete photo' photo.pk %}" class="btn btn-primary">Delete</a>
                             {% endif %}
                         </div>
                     </div>
+                    {% endfor %}
                     </div>
                     </div>
-                {% endfor %}
     {% endif %}
 
 {% endblock %}

@@ -1,7 +1,11 @@
 {% extends 'base/base.html' %}
+{% load crispy_forms_filters %}
 {% block content %}
-    {% csrf_token %}
-    {{ form }}
-    <hr>
-    <a  class="btn btn-primary" href="{% url 'edit photo' photo.pk %}" role="button">Edit</a>
+     <form method="post" action="{% url 'edit photo' photo.pk %}" enctype="multipart/form-data">
+
+                {{ form|crispy }}
+                {% csrf_token %}
+
+                <button class="btn btn-primary mt-2" type="submit">Edit</button>
+            </form>
 {% endblock %}
