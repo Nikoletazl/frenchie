@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="05fb6a3c-a6f7-49ee-b248-a9337d80b43c" name="Changes" comment="deleted cache" />
+    <list default="true" id="05fb6a3c-a6f7-49ee-b248-a9337d80b43c" name="Changes" comment="added slugignore">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.slugignore" beforeDir="false" afterPath="$PROJECT_DIR$/.slugignore" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -218,7 +221,7 @@
       <workItem from="1649840410128" duration="10915000" />
       <workItem from="1649924448623" duration="13256000" />
       <workItem from="1650013358391" duration="12860000" />
-      <workItem from="1650030384376" duration="10891000" />
+      <workItem from="1650030384376" duration="12195000" />
     </task>
     <task id="LOCAL-00001" summary="continue to work">
       <created>1649698265546</created>
@@ -297,7 +300,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650045701431</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="added slugignore">
+      <created>1650046207836</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1650046207836</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -324,7 +334,8 @@
     <MESSAGE value="working on uploading to heroku" />
     <MESSAGE value="changed static root" />
     <MESSAGE value="deleted cache" />
-    <option name="LAST_COMMIT_MESSAGE" value="deleted cache" />
+    <MESSAGE value="added slugignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="added slugignore" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/frenchie$Test__frenchie_cart_tests_views_test_CartView_CartView_test_get__expect_correct_template.coverage" NAME="Test: frenchie.cart.tests.views.test_CartView.CartView.test_get__expect_correct_template Coverage Results" MODIFIED="1650038459655" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
