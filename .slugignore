@@ -1,3 +1,7 @@
 *.psd
-/doc
-/test
+*.pdf
+test
+spec
+features
+doc
+public
