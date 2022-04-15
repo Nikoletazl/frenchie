@@ -27,10 +27,20 @@ class CreatePhotoForm(forms.ModelForm, FormControl):
             ),
         }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._init_form_control()
+        self.user = user
 
+    def save(self, commit=True):
+        photo = super().save(commit=False)
+
+        photo.user = self.user
+
+        if commit:
+            photo.save()
+
+        return photo
 
 class EditPhotoForm(forms.ModelForm, FormControl):
     class Meta:
@@ -55,14 +65,10 @@ class EditPhotoForm(forms.ModelForm, FormControl):
         }
 
 
-class DeletePhotoForm(forms.ModelForm, DisableFields):
+class DeletePhotoForm(forms.ModelForm):
     class Meta:
         model = AlbumPhoto
-        fields = ('name', 'description', 'age', 'image')
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._init_disabled_fields()
+        fields = ()
 
     def save(self, commit=True):
         self.instance.delete()

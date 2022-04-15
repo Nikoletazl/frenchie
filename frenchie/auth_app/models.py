@@ -1,5 +1,6 @@
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import User, PermissionsMixin
+from django.core.validators import MinLengthValidator
 from django.db import models
 
 from frenchie.auth_app.managers import FrenchieUserManager
@@ -7,9 +8,13 @@ from frenchie.auth_app.managers import FrenchieUserManager
 
 class FrenchieUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_MAX_LENGTH = 25
+    USERNAME_MIN_LENGTH = 5
 
     username = models.CharField(
         max_length=USERNAME_MAX_LENGTH,
+        validators=(
+            MinLengthValidator(USERNAME_MIN_LENGTH),
+        ),
         unique=True,
     )
 
@@ -28,6 +33,7 @@ class FrenchieUser(AbstractBaseUser, PermissionsMixin):
 
 class Customer(models.Model):
     NAME_MAX_LENGTH = 200
+    NAME_MIN_LENGTH = 2
 
     user = models.OneToOneField(
         FrenchieUser,
@@ -37,11 +43,17 @@ class Customer(models.Model):
 
     name = models.CharField(
         max_length=NAME_MAX_LENGTH,
+        validators=(
+            MinLengthValidator(NAME_MIN_LENGTH),
+        )
     )
 
     email = models.EmailField()
 
-    picture = models.ImageField()
+    picture = models.ImageField(
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
         return self.name

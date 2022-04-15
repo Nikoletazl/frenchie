@@ -34,13 +34,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
-    ]
-}
-
 ROOT_URLCONF = 'frenchie.urls'
 
 TEMPLATES = [
@@ -88,9 +81,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-#
-# AUTH_USER_MODEL = 'auth_app.FrenchieUser'
-
 
 LANGUAGE_CODE = 'en-us'
 
@@ -111,11 +101,12 @@ MEDIA_URL = '/images/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = '/'
-#
+
+LOGOUT_REDIRECT_URL = 'home page'
+
 AUTH_USER_MODEL = 'auth_app.FrenchieUser'

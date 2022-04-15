@@ -11,31 +11,29 @@
                 padding-top: 20px;
             }
         </style>
-
         <div class="container">
             <a class="btn btn-primary" href="{% url 'create photo' %}" role="button">Add Photo</a>
         </div>
     {% endif %}
     {% if photos %}
-    <div class="container mb-5">
-        <div class="row mb-5">
-            {% for photo in photos %}
-
-                <div class="card ml-3 mb-3" style="width: 14rem;">
-                    <!-- Image -->
-                    <img src="{{ photo.image.url }}"
-                         class="card-img-top" alt="Photo description">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ photo.name }}, age: {{ photo.age }}</h5>
-
-                        <!-- First 30 chars from the description -->
-                        <p class="card-text">{{ photo.description|truncatechars:30 }}</p>
-                        <a href="#" class="btn btn-primary">See details</a>
+        <div class="container mb-5">
+            <div class="row mb-5">
+                {% for photo in photos %}
+                    <div class="card ml-3 mb-3" style="width: 14rem;">
+                        <img src="{{ photo.image.url }}"
+                             class="card-img-top" alt="Photo description">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ photo.name }}, age: {{ photo.age }}</h5>
+                            <p class="card-text">{{ photo.description|truncatechars:30 }}</p>
+                            {% if photo.user_id == request_user.id or request.user.is_staff %}
+                                <a href="{% url 'edit photo' photo.pk %}" class="btn btn-primary">Edit</a>
+                                <a href="{% url 'delete photo' photo.pk %}" class="btn btn-primary">Delete</a>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
-                </div>
-                </div>
-            {% endfor %}
+                    </div>
+                    </div>
+                {% endfor %}
     {% endif %}
 
 {% endblock %}

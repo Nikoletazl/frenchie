@@ -1,9 +1,11 @@
 from django import forms
 from django.contrib.auth import forms as auth_forms, get_user_model
+from django.contrib.auth.views import PasswordChangeView
 
-from frenchie.auth_app.models import Customer
+from frenchie.auth_app.models import Customer, FrenchieUser
+from frenchie.helpers.disabled_fields import DisableFields
 from frenchie.helpers.form_control import FormControl
-from frenchie.web.models import AlbumPhoto
+from frenchie.web.models import AlbumPhoto, Product
 
 
 class CreateProfileForm(FormControl, auth_forms.UserCreationForm):
@@ -77,8 +79,9 @@ class EditProfileForm(FormControl, forms.ModelForm):
 
 class DeleteProfileForm(forms.ModelForm):
     def save(self, commit=True):
-        customer = list(self.instance.customer_set.all())
-        Customer.objects.all().delete()
+        user = get_user_model()
+        AlbumPhoto.objects.filter(user_id=user.id).delete()
+        Customer.objects.filter(id=user.id).delete()
         self.instance.delete()
 
         return self.instance
@@ -86,3 +89,4 @@ class DeleteProfileForm(forms.ModelForm):
     class Meta:
         model = Customer
         fields = ()
+

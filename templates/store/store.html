@@ -1,6 +1,7 @@
 {% extends 'base/base.html' %}
 {% load static %}
 {% block content %}
+    {% if user.is_athenticated or request.user.is_staff %}
     <div class="row">
         {% for product in products %}
             <div id="products" class="col-lg-4">
@@ -16,13 +17,22 @@
                     <button data-product={{ product.id }} data-action="add"
                             class="btn btn-outline-secondary add-btn update-cart">Add to Cart
                     </button>
-                    <a class="btn btn-outline-success" href="#">View</a>
+                    {% if request.user.is_staff %}
+                    <a class="btn btn-outline-success" href="{% url 'edit product' product.pk %}">Edit</a>
+                    <a class="btn btn-outline-success" href="{% url 'delete product' product.pk %}">Delete</a>
                     <h4 style="display: inline-block; float: right"><strong>
+                        {% endif %}
                         ${{ product.price|floatformat:2 }}</strong></h4>
                 </div>
             </div>
         {% endfor %}
     </div>
+    {% else %}
+        <div style="text-align: center;"/><h3>To view our products, please Login</h3>
+
+        <div style="text-align: center;"/><a type="submit" class="btn btn-success" href="{% url 'login' %}">Login</a>
+
+    {% endif %}
 
 {% endblock content %}
 

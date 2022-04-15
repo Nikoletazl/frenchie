@@ -1,7 +1,12 @@
 {% extends 'base/base.html' %}
 {% block content %}
+
+      <p class="font-monospace"><h1>Create Photo</h1></p>
+     <form method="post" action="{% url 'create photo' %}" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form }}
-    <hr>
-    <a  class="btn btn-primary" href="{% url 'create photo' %}" role="button">Create</a>
+    {{ form}}
+    <button type="submit" class="btn btn-success">Create</button>
+    </form>
+
+
 {% endblock %}
