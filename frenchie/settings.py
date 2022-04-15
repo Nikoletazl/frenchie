@@ -7,7 +7,11 @@ SECRET_KEY = 'django-insecure-#pe88e5!qk=doy&cf80txmnx_4l5va!n+%e3+3r%n_xzs(3!@n
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'frenchie-online-shop.herokuapp.com',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -25,6 +29,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -58,10 +63,10 @@ WSGI_APPLICATION = 'frenchie.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'french_bulldog_db',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
+        'NAME': 'd890qudfcq19',
+        'USER': 'dzalqakbjsqlcx',
+        'PASSWORD': '55f74dfad22193ba5aabcb0ac5613a93d4433f7496ed6f1ff6fe720be5845f6d',
+        'HOST': 'ec2-52-18-116-67.eu-west-1.compute.amazonaws.com',
         'PORT': '5432',
     }
 }
